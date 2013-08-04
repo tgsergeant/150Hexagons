@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG Test</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        #map {
+            width:100%;
+            height:1000px;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Current Hover: <span id="name"></span> </h1>
+    <object id="map" data="static/img/map.svg" type="image/svg+xml"/>
+
+    <script>
+        $(document).ready(function() {
+            $.getJSON("data/data.json", function(data) {
+                var svgRoot = document.getElementById("map").contentDocument.documentElement;
+                for(var i = 0; i < data.length; i++) {
+                    var elec = data[i];
+                    var $path = $("#" + elec.id, svgRoot);
+                    $path.attr("style", "fill:"+ elec.colour + ";fill-opacity:" + elec.alpha);
+                    $path.attr("data-name", elec.name);
+                    $path.mouseover(function(event) {
+                        $("#name").text($(this).attr("data-name"));
+                    })
+                }
+            });
+        })
+    </script>
+</body>
+</html>
