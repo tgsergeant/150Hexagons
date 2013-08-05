@@ -2,8 +2,18 @@ hist = [];
 
 mapData = {};
 
+svgLoaded = false;
+waitingOnSvg = false;
+
+currentDate = null;
+
+/**
+ * Loads history data, populates slider and requests most
+ * recent data for display.
+ */
 function loadHistory() {
-    $.getJSON("data/history.json", function(histdata) {
+    $.getJSON("data/history.json", function(rawjson) {
+        var histdata = rawjson.data;
         var $links = $("#hist-links");
         var childhtml = ""
         for(var i = 0; i < histdata.length; i++) {
@@ -33,6 +43,9 @@ function loadHistory() {
     });
 }
 
+/**
+ * Converts a date into a standard ISO representation
+ */
 function toStdDateString(d) {
     function pad(number) {
         var r = String(number);
@@ -44,31 +57,75 @@ function toStdDateString(d) {
     return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
 }
 
+/**
+ * Loads the data for the given date from cache or remote,
+ * and displays it on the map
+ */
 function loadDataForDate(d) {
     var dateStr = toStdDateString(d);
     if(mapData[dateStr] == null) {
-        $.getJSON("data/data-" + dateStr +".json", displayDateData(dateStr));
+        $.getJSON("data/data-" + dateStr +".json", displayDateData);
     } else {
         console.log("Loading from memory");
-        displayDateData(dateStr)(mapData[dateStr]);
+        displayDateData(mapData[dateStr]);
     }
 }
 
-function displayDateData(dateStr) {
-    return function(data) {
-        var svgRoot = document.getElementById("map").contentDocument.documentElement;
+/**
+ * Displays a set of raw map data on the map.
+ */
+function displayDateData(rawjson) {
+    if(svgLoaded) {
+        var svgRoot = getMapRoot();
+        var data = rawjson.data;
 
         for(var i = 0; i < data.length; i++) {
             var elec = data[i];
             var $path = $("#" + elec.id, svgRoot);
             $path.attr("style", "fill:"+ elec.colour + ";fill-opacity:" + elec.alpha);
-            $path.attr("data-name", elec.name);
-            $path.mouseover(function(event) {
-                $("#name").text($(this).attr("data-name"));
-            })
         }
-        mapData[dateStr] = data;
-    };
+    }
+    else {
+        console.log("Svg not ready to display data");
+        waitingOnSvg = true;
+    }
+    mapData[rawjson.meta["date-data"]] = rawjson;
+    currentDate = rawjson.meta["date-data"];
+}
+
+function mouseoverHandler(node) {
+    if(currentDate != null && svgLoaded) {
+        var id = $(this).attr("id").substr(1);
+        var name = mapData[currentDate]["data"][parseInt(id)]["name"];
+        $("#name").text(name);
+    }
+}
+
+function getMapRoot() {
+    return document.getElementById("map").contentDocument.documentElement;
+}
+
+/**
+ * Waits until the SVG has loaded, and then attaches event listeners to
+ * the hexes.
+ */
+function setupMap() {
+    var m = document.getElementById('map');
+    m.addEventListener("load", function() {
+        svgLoaded = true;
+
+        //Make sure that the data is displayed once the svg is actually loaded
+        if(waitingOnSvg) {
+            displayDateData(mapData[currentDate]);
+        }
+
+        var svgRoot = getMapRoot();
+
+        $("path", svgRoot).each(function(node) {
+            $(this).mouseover(mouseoverHandler);
+        })
+    })
+
 }
 
 

@@ -17,12 +17,18 @@ def main():
             # Get date from filename
             filedate = fname[5:-4]
             history.append(filedate)
-            toJSON(INPUTFOLDER + fname, OUTFOLDER + "data-" + filedate + ".json")
+            toJSON(INPUTFOLDER + fname, OUTFOLDER + "data-" + filedate + ".json", filedate)
 
     with open(OUTFOLDER + "history.json", 'w') as histfile:
-        json.dump(history, histfile)
+        fulljson = {
+            'meta':{
+                'date-gen':datetime.date.today().isoformat()
+            },
+            'data':history
+        }
+        json.dump(fulljson, histfile)
 
-def toJSON(infile, outfile):
+def toJSON(infile, outfile, filedate):
     electorates = []
 
     with open(infile) as oddsfile:
@@ -40,7 +46,14 @@ def toJSON(infile, outfile):
             electorates.append(elec)
 
     with open(outfile, "w") as out:
-        json.dump(electorates, out)
+        fulljson = {
+            'meta':{
+                'date-data': filedate,
+                'date-gen':datetime.date.today().isoformat()
+            },
+            'data':electorates,
+        }
+        json.dump(fulljson, out)
 
 
 
