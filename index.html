@@ -1,28 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SVG Test</title>
+    <title>Election Probabilities</title>
     <style>
         #map {
             width:100%;
-            height:1000px;
+            height:800px;
         }
 
+        #slider {
+            width:300px;
+        }
 
+        #slider label {
+            position: absolute;
+            width: 20px;
+            margin-top: 20px;
+            margin-left: -10px;
+            text-align: center;
+        }
     </style>
+    <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
 </head>
 <body>
-<h1>Current Hover: <span id="name"></span> </h1>
 
-<div id="hist-links"></div>
-    <object id="map" data="static/img/map.svg" type="image/svg+xml"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="static/js/map.js"></script>
-    <script>
-        $(document).ready(function() {
-            loadHistory();
-            setupMap();
-        })
-    </script>
+<header>
+    <h1>onefifty</h1>
+    <h2>12.5 million votes, 150 seats.</h2>
+</header>
+
+<aside id="selection-box">
+    <dl>
+        <dt>Seat</dt>
+        <dd class="electorate-name"></dd>
+
+        <dt>Favourite</dt>
+        <dd class="electorate-favourite"></dd>
+
+        <dt>Win Probability</dt>
+        <dd class="electorate-probability"></dd>
+    </dl>
+</aside>
+
+<div class="main"><object id="map" data="static/img/map.svg" type="image/svg+xml"></object></div>
+
+<nav id="history-box">
+    <div id="slider"></div>
+</nav>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="static/js/map.js"></script>
+
+<script>
+    $(document).ready(function() {
+        loadHistory();
+        checkSVGReady();
+
+        $("#slider").slider({range: false, values: [1]});
+    })
+</script>
 </body>
 </html>

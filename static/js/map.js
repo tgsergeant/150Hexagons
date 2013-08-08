@@ -14,8 +14,7 @@ currentDate = null;
 function loadHistory() {
     $.getJSON("data/history.json", function(rawjson) {
         var histdata = rawjson.data;
-        var $links = $("#hist-links");
-        var childhtml = ""
+
         for(var i = 0; i < histdata.length; i++) {
             var d = new Date(histdata[i]);
             hist.push(d);
@@ -25,11 +24,20 @@ function loadHistory() {
         hist.reverse();
         console.log(hist);
 
-        for(i = 0; i < hist.length; i++) {
-            childhtml += "<p><a href='#' class='hist-swap-link' data-id='"+i+"'>" + toStdDateString(hist[i]) + "</a></p>";
-        }
+        var $slider = $("#slider");
+        $slider.slider({
+            min: 1,
+            max: hist.length,
+            values: [hist.length],
+            slide: function(event, ui) {
+                loadDataForSliderId(ui.value);
+            }
+        });
 
-        $links.html(childhtml);
+        for(i = hist.length - 1; i >= 0; i--) {
+            var el = $("<label>" + toPrettyDateString(hist[i]) + "</label>").css("left", ((hist.length - 1 - i) / (hist.length - 1) * 100) + "%");
+            $slider.append(el);
+        }
 
         $(".hist-swap-link").on("click", function() {
             loadDataForDate(hist[$(this).attr("data-id")]);
@@ -55,6 +63,16 @@ function toStdDateString(d) {
         return r;
     }
     return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+}
+
+function toPrettyDateString(d) {
+    return d.getDate() + "/" + d.getMonth();
+}
+
+
+function loadDataForSliderId(id) {
+    console.log("Loading");
+    loadDataForDate(hist[hist.length - id]);
 }
 
 /**
@@ -96,8 +114,10 @@ function displayDateData(rawjson) {
 function mouseoverHandler(node) {
     if(currentDate != null && svgLoaded) {
         var id = $(this).attr("id").substr(1);
-        var name = mapData[currentDate]["data"][parseInt(id)]["name"];
-        $("#name").text(name);
+        var elec = mapData[currentDate]["data"][parseInt(id)];
+        $("dd.electorate-name").text(elec.name);
+        $("dd.electorate-favourite").text(elec.fav);
+        $("dd.electorate-probability").text(Math.round(elec.p) + "%");
     }
 }
 
@@ -109,9 +129,17 @@ function getMapRoot() {
  * Waits until the SVG has loaded, and then attaches event listeners to
  * the hexes.
  */
-function setupMap() {
-    var m = document.getElementById('map');
-    m.addEventListener("load", function() {
+//function setupMap() {
+//    var m = document.getElementById('map');
+//    m.addEventListener("load", function() {
+//
+//    })
+//
+//}
+
+function checkSVGReady() {
+    if (document.getElementById("map").contentDocument != null) {
+        console.log("SVG Ready");
         svgLoaded = true;
 
         //Make sure that the data is displayed once the svg is actually loaded
@@ -124,9 +152,11 @@ function setupMap() {
         $("path", svgRoot).each(function(node) {
             $(this).mouseover(mouseoverHandler);
         })
-    })
-
+    }
+    else {
+        console.log("Window not ready");
+        window.setTimeout(checkSVGReady, 100);
+    }
 }
-
 
 

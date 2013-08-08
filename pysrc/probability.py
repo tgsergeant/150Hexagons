@@ -39,9 +39,9 @@ def toJSON(infile, outfile, filedate):
                 'id': 'p' + line[0],
                 'name': line[1],
                 'colour': line[2][:-2],
-                'alpha': float(line[3]),
-                'favourite': line[4],
-                'prob': float(line[5]),
+                'alpha': "{:.3}".format(float(line[3])),
+                'fav': line[4],
+                'p': "{:.0f}".format(100 * float(line[5])),
             }
             electorates.append(elec)
 
