@@ -1,11 +1,9 @@
 hist = [];
 
+currentDate = null;
 mapData = {};
 
 svgLoaded = false;
-waitingOnSvg = false;
-
-currentDate = null;
 
 /**
  * Loads history data, populates slider and requests most
@@ -45,9 +43,7 @@ function loadHistory() {
             return false;
         });
 
-
-        latest = hist[0];
-        loadDataForDate(latest);
+        loadFirstDateData();
     });
 }
 
@@ -88,22 +84,38 @@ function loadDataForDate(d) {
     }
 }
 
+function loadFirstDateData() {
+    var dateStr = toStdDateString(hist[0]);
+    $.getJSON("data/data-" + dateStr + ".json", function(data) {
+        currentDate = dateStr;
+        mapData[dateStr] = data;
+
+        checkBothLoaded();
+    });
+}
+
 /**
  * Displays a set of raw map data on the map.
  */
 function displayDateData(rawjson) {
-    if(svgLoaded) {
-        var svgRoot = getMapRoot();
-        var data = rawjson.data;
+    var svgRoot = getMapRoot();
+    var data = rawjson.data;
 
-        for(var i = 0; i < data.length; i++) {
-            var elec = data[i];
-            var $path = $("#" + elec.id, svgRoot);
-            $path.attr("style", "fill:"+ elec.colour + ";fill-opacity:" + elec.alpha);
+    for(var i = 0; i < data.length; i++) {
+        var elec = data[i];
+        var $path = $("#" + elec.id, svgRoot);
+        var stylestr = "fill-opacity:" + elec.alpha;
+
+        if(elec['colour'] != null) {
+            stylestr += ";fill:" + elec.colour;
+        } else {
+            if(elec.fav == 'ALP') {
+                $path.attr('class', 'fav-alp');
+            } else if(elec.fav == 'Coalition') {
+                $path.attr('class', 'fav-lib');
+            }
         }
-    }
-    else {
-        waitingOnSvg = true;
+        $path.attr("style", stylestr);
     }
     mapData[rawjson.meta["date-data"]] = rawjson;
     currentDate = rawjson.meta["date-data"];
@@ -112,7 +124,7 @@ function displayDateData(rawjson) {
 function mouseoverHandler(node) {
     if(currentDate != null && svgLoaded) {
         var id = $(this).attr("id").substr(1);
-        var elec = mapData[currentDate]["data"][parseInt(id)];
+        var elec = mapData[currentDate]["data"][parseInt(id) - 1];
         $("dd.electorate-name").text(elec.name);
         $("dd.electorate-favourite").text(elec.fav);
         $("dd.electorate-probability").text(Math.round(elec.p) + "%");
@@ -134,11 +146,8 @@ function getMapRoot() {
 function checkSVGReady() {
     if (document.getElementById("map").contentDocument != null) {
         svgLoaded = true;
-
         //Make sure that the data is displayed once the svg is actually loaded
-        if(waitingOnSvg) {
-            displayDateData(mapData[currentDate]);
-        }
+        checkBothLoaded();
 
         var svgRoot = getMapRoot();
 
@@ -151,4 +160,12 @@ function checkSVGReady() {
     }
 }
 
+function checkBothLoaded() {
+    if(svgLoaded && currentDate != null) {
+        $("#loading-box").addClass("hidden");
+        $("#main").removeClass("hidden");
+
+        displayDateData(mapData[currentDate]);
+    }
+}
 

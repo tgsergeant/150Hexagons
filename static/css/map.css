@@ -1,0 +1,17 @@
+
+path.fav-alp {
+    fill: #ff0000;
+}
+
+path.fav-lib {
+    fill: #0000ff;
+}
+
+path.fav-other {
+    fill: #616161;
+}
+
+path {
+    stroke: #333;
+    fill: #fff;
+}

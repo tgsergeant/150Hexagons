@@ -19,6 +19,10 @@
             margin-left: -10px;
             text-align: center;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
     <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
 </head>
@@ -29,24 +33,30 @@
     <h2>12.5 million votes, 150 seats.</h2>
 </header>
 
-<aside id="selection-box">
-    <dl>
-        <dt>Seat</dt>
-        <dd class="electorate-name"></dd>
+<div id="loading-box">Loading...</div>
 
-        <dt>Favourite</dt>
-        <dd class="electorate-favourite"></dd>
+<div id="main" class="hidden">
 
-        <dt>Win Probability</dt>
-        <dd class="electorate-probability"></dd>
-    </dl>
-</aside>
+    <aside id="selection-box">
+        <dl>
+            <dt>Seat</dt>
+            <dd class="electorate-name"></dd>
 
-<div class="main"><object id="map" data="static/img/map.svg" type="image/svg+xml"></object></div>
+            <dt>Favourite</dt>
+            <dd class="electorate-favourite"></dd>
 
-<nav id="history-box">
-    <div id="slider"></div>
-</nav>
+            <dt>Win Probability</dt>
+            <dd class="electorate-probability"></dd>
+        </dl>
+    </aside>
+
+    <object id="map" data="static/img/map.svg" type="image/svg+xml"></object>
+
+    <nav id="history-box">
+        <div id="slider"></div>
+    </nav>
+</div>
+
 
 
 
