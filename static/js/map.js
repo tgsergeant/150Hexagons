@@ -84,7 +84,6 @@ function loadDataForDate(d) {
     if(mapData[dateStr] == null) {
         $.getJSON("data/data-" + dateStr +".json", displayDateData);
     } else {
-        console.log("Loading from memory");
         displayDateData(mapData[dateStr]);
     }
 }
@@ -104,7 +103,6 @@ function displayDateData(rawjson) {
         }
     }
     else {
-        console.log("Svg not ready to display data");
         waitingOnSvg = true;
     }
     mapData[rawjson.meta["date-data"]] = rawjson;
@@ -128,18 +126,13 @@ function getMapRoot() {
 /**
  * Waits until the SVG has loaded, and then attaches event listeners to
  * the hexes.
+ *
+ * Fixed a bug in how I was embedding the SVG, absolutely could not get
+ * the event listener to work again. I might try later, otherwise this
+ * timeout method will have to do.
  */
-//function setupMap() {
-//    var m = document.getElementById('map');
-//    m.addEventListener("load", function() {
-//
-//    })
-//
-//}
-
 function checkSVGReady() {
     if (document.getElementById("map").contentDocument != null) {
-        console.log("SVG Ready");
         svgLoaded = true;
 
         //Make sure that the data is displayed once the svg is actually loaded
@@ -154,7 +147,6 @@ function checkSVGReady() {
         })
     }
     else {
-        console.log("Window not ready");
         window.setTimeout(checkSVGReady, 100);
     }
 }
