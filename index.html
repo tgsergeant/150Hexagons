@@ -3,6 +3,9 @@
 <head>
     <title>Election Probabilities</title>
     <style>
+	    /* YUI 3.5.0 reset.css (http://developer.yahoo.com/yui/3/cssreset/) - http://cssreset.com */
+	    html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
+
         #map {
             width:100%;
             height:800px;
@@ -23,54 +26,82 @@
         .hidden {
             display: none;
         }
+
+	body {
+		background-color: #fafafa;
+	}
+	
+	#content-wrapper {
+		padding: 1em 0 0 2em;
+	}
+
+	h1 {
+		font-family: museo-slab, Rockwell, serif;
+		font-size: 5em;
+		letter-spacing: -2px;
+	}
+	h2 {
+		font-family: nimbus-sans, Arial, sans-serif;
+		font-size: 2em;
+		letter-spacing: -2px;
+		font-weight: 300;
+	}	
+
+	#selection-box {
+		width: 300px;
+	}
+
+
     </style>
     <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
+    <script type="text/javascript" src="//use.typekit.net/arn5ccn.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
 
-<header>
-    <h1>onefifty</h1>
-    <h2>12.5 million votes, 150 seats.</h2>
-</header>
+	<div id="content-wrapper">
+		<div id="header">
+			<h1>onefifty</h1>
+			<h2>12.5 million votes, 150 seats.</h2>
+		</div>
 
-<div id="loading-box">Loading...</div>
+		<div id="loading-box">Loading...</div>
 
-<div id="main" class="hidden">
+		<div id="main" class="hidden">
 
-    <aside id="selection-box">
-        <dl>
-            <dt>Seat</dt>
-            <dd class="electorate-name"></dd>
+			<div id="selection-box">
+				<dl>
+					<dt>Seat</dt>
+					<dd class="electorate-name"></dd>
 
-            <dt>Favourite</dt>
-            <dd class="electorate-favourite"></dd>
+					<dt>Favourite</dt>
+					<dd class="electorate-favourite"></dd>
 
-            <dt>Win Probability</dt>
-            <dd class="electorate-probability"></dd>
-        </dl>
-    </aside>
+					<dt>Win Probability</dt>
+					<dd class="electorate-probability"></dd>
+				</dl>
+			</div>
 
-    <object id="map" data="static/img/map.svg" type="image/svg+xml"></object>
+			<object id="map" data="static/img/map.svg" type="image/svg+xml"></object>
 
-    <nav id="history-box">
-        <div id="slider"></div>
-    </nav>
-</div>
+			<div id="history-box nav">
+				<div id="slider"></div>
+			</div>
+		</div>
+	</div>
 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="static/js/map.js"></script>
 
+	<script>
+		$(document).ready(function() {
+			loadHistory();
+			checkSVGReady();
 
+			$("#slider").slider({range: false, values: [1]});
+		})
+	</script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="static/js/map.js"></script>
-
-<script>
-    $(document).ready(function() {
-        loadHistory();
-        checkSVGReady();
-
-        $("#slider").slider({range: false, values: [1]});
-    })
-</script>
 </body>
 </html>
