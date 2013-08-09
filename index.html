@@ -3,15 +3,15 @@
 <head>
     <title>Election Probabilities</title>
     <style>
-	    /* YUI 3.5.0 reset.css (http://developer.yahoo.com/yui/3/cssreset/) - http://cssreset.com */
-	    html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
+            /* YUI 3.5.0 reset.css (http://developer.yahoo.com/yui/3/cssreset/) - http://cssreset.com */
+        html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
 
         #map {
             width:100%;
             height:1000px;
-	    position: absolute;
-	    top: -50px;
-	    left: 160px;
+            position: absolute;
+            top: -50px;
+            left: 160px;
         }
 
         #slider {
@@ -29,83 +29,86 @@
         .hidden {
             display: none;
         }
+        #map.svg-hidden {
+            height:0px;
+        }
 
-	html, body {
-		background-color: #fafafa;
-	}
-	
-	#content-wrapper {
-		padding: 1em 0 0 2em;
-	}
+        html, body {
+            background-color: #fafafa;
+        }
 
-	h1 {
-		font-family: museo-slab, Rockwell, serif;
-		font-size: 5em;
-		letter-spacing: -2px;
-	}
-	h2 {
-		font-family: nimbus-sans, Arial, sans-serif;
-		font-size: 2em;
-		letter-spacing: -2px;
-		font-weight: 300;
-	}	
+        #content-wrapper {
+            padding: 1em 0 0 2em;
+        }
 
-	#selection-box {
-		width: 300px;
-		position: relative;
-		z-index: 100;
-		background-color: #FFFFFF;
-		border: 1px solid #EEEEEE;
-		font-family: nimbus-sans-condensed, Arial, sans-serif;
-		padding: 1em;
-		margin-top: 2em;
-	}
+        h1 {
+            font-family: museo-slab, Rockwell, serif;
+            font-size: 5em;
+            letter-spacing: -2px;
+        }
+        h2 {
+            font-family: nimbus-sans, Arial, sans-serif;
+            font-size: 2em;
+            letter-spacing: -2px;
+            font-weight: 300;
+        }
 
-	.float-me {
-		position:fixed !important;
-		top: 20px;
-	}
+        #selection-box {
+            width: 300px;
+            position: relative;
+            z-index: 100;
+            background-color: #FFFFFF;
+            border: 1px solid #EEEEEE;
+            font-family: nimbus-sans-condensed, Arial, sans-serif;
+            padding: 1em;
+            margin-top: 2em;
+        }
 
-    table {
-        width:100%;
-        height:500px;
-    }
+        .float-me {
+            position:fixed !important;
+            top: 20px;
+        }
 
-    td.fav-lib {
-        background-color: #0000ff;
-    }
+        table {
+            width:100%;
+            height:500px;
+        }
 
-    td.fav-alp {
-        background-color: #ff0000;
-    }
+        td.fav-lib {
+            background-color: #0000ff;
+        }
+
+        td.fav-alp {
+            background-color: #ff0000;
+        }
 
 
 
-	.clearfix {
-		clear:both;
-	}
-	
-	dt {
-		float:left;
-		clear:left;
-		margin-right: 1em;
-		margin-top: 13px;
-		color: #aaa;
-		font-size: 1.2em;
-	}
+        .clearfix {
+            clear:both;
+        }
 
-	dd {
-		font-size: 2.5em;
-	}
+        dt {
+            float:left;
+            clear:left;
+            margin-right: 1em;
+            margin-top: 13px;
+            color: #aaa;
+            font-size: 1.2em;
+        }
 
-	dd.electorate-probability {
-		font-size: 4em;
-	}
-	
-	#history-box {
-		position: absolute;
-		top: 730px;
-	}
+        dd {
+            font-size: 2.5em;
+        }
+
+        dd.electorate-probability {
+            font-size: 4em;
+        }
+
+        #history-box {
+            position: absolute;
+            top: 730px;
+        }
 
     </style>
     <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
@@ -114,70 +117,70 @@
 </head>
 <body>
 
-	<div id="content-wrapper">
-		<div id="header">
-			<h1>onefifty</h1>
-			<h2>12.5 million votes, 150 seats.</h2>
-		</div>
+<div id="content-wrapper">
+    <div id="header">
+        <h1>onefifty</h1>
+        <h2>12.5 million votes, 150 seats.</h2>
+    </div>
 
-		<div id="loading-box">Loading...</div>
 
-		<div id="main" class="hidden">
+    <div id="main">
+        <div id="loading-box">Loading...</div>
 
-			<div id="selection-box">
-				<dl>
-					<dt>Seat</dt>
-					<dd class="electorate-name"></dd>
+        <div id="selection-box">
+            <dl>
+                <dt>Seat</dt>
+                <dd class="electorate-name"></dd>
 
-					<dt>Favourite</dt>
-					<dd id="electorate-favourite"></dd>
+                <dt>Favourite</dt>
+                <dd id="electorate-favourite"></dd>
 
-					<dt>Win Probability</dt>
-					<dd class="electorate-probability"></dd>
-				</dl>
-				<div class="clearfix"></div>
-			</div>
+                <dt>Win Probability</dt>
+                <dd class="electorate-probability"></dd>
+            </dl>
+            <div class="clearfix"></div>
+        </div>
 
-			<object id="map" data="static/img/map.svg" type="image/svg+xml"></object>
+        <embed id="map" src="/static/img/map.svg" type="image/svg+xml"></embed>
 
-            <table id="prob-table" class="hidden" border="1">
+        <table id="prob-table" class="hidden" border="1">
 
-            </table>
+        </table>
 
-			<div id="history-box nav">
-                <a href="#" id="display-toggle">Display as table</a>
-                <div id="slider"></div>
-			</div>
-		</div>
-	</div>
+        <div id="history-box nav">
+            <a href="#" id="display-toggle">Display as table</a>
+            <div id="slider"></div>
+        </div>
+    </div>
+</div>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
-	<script src="static/js/map.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="static/js/map.js"></script>
 
-	<script>
+<script>
 
-		var selectionBoxOffset = 0;
-		
-		$(document).ready(function() {
-			loadHistory();
-			checkSVGReady();
+    var selectionBoxOffset = 0;
 
-			$("#slider").slider({range: false, values: [1]});
-			selectionBoxOffset = 140; //$("#selection-box").offset().top; 
-		})
+    $(document).ready(function() {
+        loadHistory();
+        checkSVGReady();
 
-		$(window).scroll(function() {
-			var scrollOffset = window.pageYOffset;
+        $("#slider").slider({range: false, values: [1]});
+        selectionBoxOffset = 140; //$("#selection-box").offset().top;
+    })
 
-			if(scrollOffset > selectionBoxOffset) {
-				$("#selection-box").addClass("float-me");
-			} else {
-				$("#selection-box").removeClass("float-me");
-			}
+    $(window).scroll(function() {
+        var scrollOffset = window.pageYOffset;
 
-		});
-	</script>
+        if(scrollOffset > selectionBoxOffset) {
+            $("#selection-box").addClass("float-me");
+        } else {
+            $("#selection-box").removeClass("float-me");
+        }
+
+    });
+</script>
 
 </body>
 </html>

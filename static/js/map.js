@@ -176,7 +176,7 @@ function mouseoverHandler(node) {
 }
 
 function getMapRoot() {
-    return document.getElementById("map").contentDocument.documentElement;
+    return document.getElementById("map").getSVGDocument().documentElement;
 }
 
 /**
@@ -188,7 +188,7 @@ function getMapRoot() {
  * timeout method will have to do.
  */
 function checkSVGReady() {
-    if (document.getElementById("map").contentDocument != null) {
+    if (document.getElementById("map").getSVGDocument() != null) {
         svgLoaded = true;
         //Make sure that the data is displayed once the svg is actually loaded
         checkBothLoaded();
@@ -224,7 +224,7 @@ function setupTable() {
 function checkBothLoaded() {
     if(svgLoaded && currentDate != null) {
         $("#loading-box").addClass("hidden");
-        $("#main").removeClass("hidden");
+        //$("#main").removeClass("hidden");
 
         displayDateData(mapData[currentDate]);
     }
@@ -235,12 +235,12 @@ function checkBothLoaded() {
 $("#display-toggle").on("click", function(e) {
     if(displayAsSVG) {
         $(this).text("Display as map");
-        $("#map").addClass("hidden");
+        $("#map").addClass("svg-hidden");
         $("#prob-table").removeClass("hidden");
     } else {
         //Currently displaying as a table
         $(this).text("Display as table");
-        $("#map").removeClass("hidden");
+        $("#map").removeClass("svg-hidden");
         $("#prob-table").addClass("hidden");
     }
     displayAsSVG = !displayAsSVG;
