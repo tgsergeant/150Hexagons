@@ -8,11 +8,14 @@
 
         #map {
             width:100%;
-            height:800px;
+            height:1000px;
+	    position: absolute;
+	    top: -50px;
+	    left: 160px;
         }
 
         #slider {
-            width:300px;
+            width:420px;
         }
 
         #slider label {
@@ -27,7 +30,7 @@
             display: none;
         }
 
-	body {
+	html, body {
 		background-color: #fafafa;
 	}
 	
@@ -49,8 +52,19 @@
 
 	#selection-box {
 		width: 300px;
+		position: relative;
+		z-index: 100;
+		background-color: #FFFFFF;
+		border: 1px solid #EEEEEE;
+		font-family: nimbus-sans-condensed, Arial, sans-serif;
+		padding: 1em;
+		margin-top: 2em;
 	}
 
+	.float-me {
+		position:fixed !important;
+		top: 20px;
+	}
 
     table {
         width:100%;
@@ -66,6 +80,32 @@
     }
 
 
+
+	.clearfix {
+		clear:both;
+	}
+	
+	dt {
+		float:left;
+		clear:left;
+		margin-right: 1em;
+		margin-top: 13px;
+		color: #aaa;
+		font-size: 1.2em;
+	}
+
+	dd {
+		font-size: 2.5em;
+	}
+
+	dd.electorate-probability {
+		font-size: 4em;
+	}
+	
+	#history-box {
+		position: absolute;
+		top: 730px;
+	}
 
     </style>
     <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
@@ -95,6 +135,7 @@
 					<dt>Win Probability</dt>
 					<dd class="electorate-probability"></dd>
 				</dl>
+				<div class="clearfix"></div>
 			</div>
 
 			<object id="map" data="static/img/map.svg" type="image/svg+xml"></object>
@@ -115,12 +156,27 @@
 	<script src="static/js/map.js"></script>
 
 	<script>
+
+		var selectionBoxOffset = 0;
+		
 		$(document).ready(function() {
 			loadHistory();
 			checkSVGReady();
 
 			$("#slider").slider({range: false, values: [1]});
+			selectionBoxOffset = 140; //$("#selection-box").offset().top; 
 		})
+
+		$(window).scroll(function() {
+			var scrollOffset = window.pageYOffset;
+
+			if(scrollOffset > selectionBoxOffset) {
+				$("#selection-box").addClass("float-me");
+			} else {
+				$("#selection-box").removeClass("float-me");
+			}
+
+		});
 	</script>
 
 </body>
