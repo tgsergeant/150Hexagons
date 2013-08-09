@@ -8,14 +8,14 @@
 
         #map {
             width:100%;
-            height:800px;
+            height:1000px;
 	    position: absolute;
-	    top: 60px;
+	    top: -50px;
 	    left: 160px;
         }
 
         #slider {
-            width:300px;
+            width:420px;
         }
 
         #slider label {
@@ -30,7 +30,7 @@
             display: none;
         }
 
-	body {
+	html, body {
 		background-color: #fafafa;
 	}
 	
@@ -80,7 +80,11 @@
 	}
 
 	dd {
-		font-size: 2em;
+		font-size: 2.5em;
+	}
+
+	dd.electorate-probability {
+		font-size: 4em;
 	}
 	
 	#history-box {
@@ -141,8 +145,6 @@
 
 			$("#slider").slider({range: false, values: [1]});
 			selectionBoxOffset = 140; //$("#selection-box").offset().top; 
-
-			alert("selectionBoxOffset: " + selectionBoxOffset);
 		})
 
 		$(window).scroll(function() {
