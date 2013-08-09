@@ -52,6 +52,21 @@
 	}
 
 
+    table {
+        width:100%;
+        height:500px;
+    }
+
+    td.fav-lib {
+        background-color: #0000ff;
+    }
+
+    td.fav-alp {
+        background-color: #ff0000;
+    }
+
+
+
     </style>
     <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
     <script type="text/javascript" src="//use.typekit.net/arn5ccn.js"></script>
@@ -84,8 +99,13 @@
 
 			<object id="map" data="static/img/map.svg" type="image/svg+xml"></object>
 
+            <table id="prob-table" class="hidden" border="1">
+
+            </table>
+
 			<div id="history-box nav">
-				<div id="slider"></div>
+                <a href="#" id="display-toggle">Display as table</a>
+                <div id="slider"></div>
 			</div>
 		</div>
 	</div>

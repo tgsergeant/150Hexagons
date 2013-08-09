@@ -7,12 +7,15 @@ svgLoaded = false;
 
 displayAsSVG = true;
 
+TABLE_COLUMNS = 15;
+TOTAL_ELECTORATES = 150;
+
 /**
  * Loads history data, populates slider and requests most
  * recent data for display.
  */
 function loadHistory() {
-    $.getJSON("data/history.json", function(rawjson) {
+    $.getJSON("/data/history.json", function(rawjson) {
         var histdata = rawjson.data;
 
         for(var i = 0; i < histdata.length; i++) {
@@ -80,7 +83,7 @@ function loadDataForSliderId(id) {
 function loadDataForDate(d) {
     var dateStr = toStdDateString(d);
     if(mapData[dateStr] == null) {
-        $.getJSON("data/data-" + dateStr +".json", displayDateData);
+        $.getJSON("/data/data-" + dateStr +".json", displayDateData);
     } else {
         displayDateData(mapData[dateStr]);
     }
@@ -88,7 +91,7 @@ function loadDataForDate(d) {
 
 function loadFirstDateData() {
     var dateStr = toStdDateString(hist[0]);
-    $.getJSON("data/data-" + dateStr + ".json", function(data) {
+    $.getJSON("/data/data-" + dateStr + ".json", function(data) {
         currentDate = dateStr;
         mapData[dateStr] = data;
 
@@ -96,28 +99,56 @@ function loadFirstDateData() {
     });
 }
 
+function displayTableData(rawjson, data) {
+    for (var j = 0; j <= TOTAL_ELECTORATES; j++) {
+        var elec = data[rawjson.order[j] - 1];
+        if(!elec) {
+            continue;
+        }
+        var $td = $("#t" + (j + 1));
+
+        var stylestr = "opacity:" + elec.alpha;
+
+        if (elec['colour'] != null) {
+            stylestr += ";background-color:" + elec.colour;
+        } else {
+            if (elec.fav == 'ALP') {
+                $td.attr('class', 'fav-alp');
+            } else if (elec.fav == 'Coalition') {
+                $td.attr('class', 'fav-lib');
+            }
+        }
+
+        $td.attr("style", stylestr);
+    }
+}
 /**
  * Displays a set of raw map data on the map.
  */
 function displayDateData(rawjson) {
-    var svgRoot = getMapRoot();
     var data = rawjson.data;
 
-    for(var i = 0; i < data.length; i++) {
-        var elec = data[i];
-        var $path = $("#" + elec.id, svgRoot);
-        var stylestr = "fill-opacity:" + elec.alpha;
+    if(displayAsSVG) {
+        var svgRoot = getMapRoot();
 
-        if(elec['colour'] != null) {
-            stylestr += ";fill:" + elec.colour;
-        } else {
-            if(elec.fav == 'ALP') {
-                $path.attr('class', 'fav-alp');
-            } else if(elec.fav == 'Coalition') {
-                $path.attr('class', 'fav-lib');
+        for(var i = 0; i < data.length; i++) {
+            var elec = data[i];
+            var $path = $("#" + elec.id, svgRoot);
+            var stylestr = "fill-opacity:" + elec.alpha;
+
+            if(elec['colour'] != null) {
+                stylestr += ";fill:" + elec.colour;
+            } else {
+                if(elec.fav == 'ALP') {
+                    $path.attr('class', 'fav-alp');
+                } else if(elec.fav == 'Coalition') {
+                    $path.attr('class', 'fav-lib');
+                }
             }
+            $path.attr("style", stylestr);
         }
-        $path.attr("style", stylestr);
+    } else { //Display as table
+        displayTableData(rawjson, data);
     }
     mapData[rawjson.meta["date-data"]] = rawjson;
     currentDate = rawjson.meta["date-data"];
@@ -126,6 +157,9 @@ function displayDateData(rawjson) {
 function mouseoverHandler(node) {
     if(currentDate != null && svgLoaded) {
         var id = $(this).attr("id").substr(1);
+        if(!displayAsSVG) {
+            id = mapData[currentDate]["order"][id - 1];
+        }
         var elec = mapData[currentDate]["data"][parseInt(id) - 1];
         $("dd.electorate-name").text(elec.name);
         $("dd.electorate-favourite").text(elec.fav);
@@ -153,13 +187,30 @@ function checkSVGReady() {
 
         var svgRoot = getMapRoot();
 
+        //Setup SVG
         $("path", svgRoot).each(function(node) {
             $(this).mouseover(mouseoverHandler);
-        })
+        });
+
+        setupTable();
+
     }
     else {
         window.setTimeout(checkSVGReady, 100);
     }
+}
+
+function setupTable() {
+    var NUM_ROWS = TOTAL_ELECTORATES / TABLE_COLUMNS;
+    var $table = $("#prob-table");
+    for(var row = 0; row < NUM_ROWS; row++) {
+        var $tr = $("<tr></tr>");
+        for(var col = 0; col < TABLE_COLUMNS; col++) {
+            $tr.append("<td id='t" + (col * NUM_ROWS + row + 1) +"'></td>");
+        }
+        $table.append($tr);
+    }
+    $("td").on("mouseover", mouseoverHandler);
 }
 
 function checkBothLoaded() {
@@ -170,4 +221,23 @@ function checkBothLoaded() {
         displayDateData(mapData[currentDate]);
     }
 }
+
+
+//Table related things
+$("#display-toggle").on("click", function(e) {
+    if(displayAsSVG) {
+        $(this).text("Display as map");
+        $("#map").addClass("hidden");
+        $("#prob-table").removeClass("hidden");
+    } else {
+        //Currently displaying as a table
+        $(this).text("Display as table");
+        $("#map").removeClass("hidden");
+        $("#prob-table").addClass("hidden");
+    }
+    displayAsSVG = !displayAsSVG;
+    displayDateData(mapData[currentDate]);
+});
+
+
 
