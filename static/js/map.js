@@ -5,6 +5,8 @@ mapData = {};
 
 svgLoaded = false;
 
+displayAsSVG = true;
+
 /**
  * Loads history data, populates slider and requests most
  * recent data for display.

@@ -11,27 +11,30 @@ OUTFOLDER = "../data/"
 
 def main():
     infiles = os.listdir(INPUTFOLDER)
-    history = []
+    datahistory = []
+
     for fname in infiles:
         if fname.startswith("data-"):
             # Get date from filename
             filedate = fname[5:-4]
-            history.append(filedate)
-            toJSON(INPUTFOLDER + fname, OUTFOLDER + "data-" + filedate + ".json", filedate)
+            datahistory.append(filedate)
+            toJSON(OUTFOLDER + "data-" + filedate + ".json", filedate)
+
 
     with open(OUTFOLDER + "history.json", 'w') as histfile:
         fulljson = {
             'meta':{
                 'date-gen':datetime.date.today().isoformat()
             },
-            'data':history
+            'data':datahistory,
         }
         json.dump(fulljson, histfile)
 
-def toJSON(infile, outfile, filedate):
+def toJSON(outfile, filedate):
     electorates = []
+    elec_order = []
 
-    with open(infile) as oddsfile:
+    with open(INPUTFOLDER + "data-" + filedate + ".csv") as oddsfile:
         oreader = csv.reader(oddsfile)
         next(oreader)
         for line in oreader:
@@ -46,6 +49,12 @@ def toJSON(infile, outfile, filedate):
                 elec['colour'] = line[2]
             electorates.append(elec)
 
+    with open(INPUTFOLDER + "rectangle-" + filedate + ".csv") as oddsfile:
+        oreader = csv.reader(oddsfile)
+        next(oreader)
+        for line in oreader:
+            elec_order.append(int(line[0]))
+
     with open(outfile, "w") as out:
         fulljson = {
             'meta':{
@@ -53,6 +62,7 @@ def toJSON(infile, outfile, filedate):
                 'date-gen':datetime.date.today().isoformat()
             },
             'data':electorates,
+            'order':elec_order,
         }
         json.dump(fulljson, out, separators=(',',':'))
 
