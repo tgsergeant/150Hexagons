@@ -224,7 +224,10 @@ function setupTable() {
 function checkBothLoaded() {
     if(svgLoaded && currentDate != null) {
         $("#loading-box").addClass("hidden");
-        //$("#main").removeClass("hidden");
+        $("#main").removeClass("hidden");
+        $("#map").removeClass("svg-hidden");
+        $("#header").removeClass("loading");
+
 
         displayDateData(mapData[currentDate]);
     }
