@@ -162,7 +162,15 @@ function mouseoverHandler(node) {
         }
         var elec = mapData[currentDate]["data"][parseInt(id) - 1];
         $("dd.electorate-name").text(elec.name);
-        $("dd.electorate-favourite").text(elec.fav);
+        var $ddfav = $("dd#electorate-favourite");
+        $ddfav.text(elec.fav);
+        var favclass = 'fav-name-other';
+        if(elec.fav == 'ALP') {
+            favclass = 'fav-name-alp';
+        } else if(elec.fav == 'Coalition') {
+            favclass = 'fav-name-lib';
+        }
+        $ddfav.attr('class', favclass);
         $("dd.electorate-probability").text(Math.round(elec.p) + "%");
     }
 }
