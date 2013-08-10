@@ -15,7 +15,9 @@
         }
 
         #slider {
-            width:420px;
+			border: 1px solid #DDDDDD;
+			height: 0;
+			width: 420px;
         }
 
         #slider label {
@@ -46,6 +48,7 @@
             font-size: 5em;
             letter-spacing: -2px;
         }
+
         h2 {
             font-family: nimbus-sans, Arial, sans-serif;
             font-size: 2em;
@@ -55,14 +58,19 @@
 
         #selection-box {
             width: 300px;
-            position: relative;
+            position: absolute;
             z-index: 100;
+        }
+
+        .box {
             background-color: #FFFFFF;
             border: 1px solid #EEEEEE;
             font-family: nimbus-sans-condensed, Arial, sans-serif;
-            padding: 1em;
+            padding: 10px 20px 20px;
             margin-top: 2em;
-        }
+	    box-shadow: 0 0 20px #DDDDDD;
+	    
+	}
 
         .float-me {
             position:fixed !important;
@@ -88,6 +96,10 @@
             clear:both;
         }
 
+	dl {
+	    margin-top: 13px;
+	}
+
         dt {
             float:left;
             clear:left;
@@ -96,19 +108,38 @@
             color: #aaa;
             font-size: 1.2em;
         }
-
+	
         dd {
             font-size: 2.5em;
+	    text-align: right;
+	    margin-right: 15px;
         }
+	
+		a.ui-slider-handle {
+				background: url('/static/img/marker.png') no-repeat 0 0 transparent !important;
+		}
 
         dd.electorate-probability {
             font-size: 4em;
         }
 
-        #history-box {
-            position: absolute;
-            top: 730px;
+	.fav-name-lib {
+	    color: blue;
         }
+
+	.fav-name-alp {
+	    color: red;
+        }
+
+		#history-box {
+				bottom: 30px;
+				height: 50px;
+				position: fixed;
+		}
+		
+		label {
+			font-family: nimbus-sans-condensed, Arial, sans-serif;
+	    }
 
         #loading-box {
             position: absolute;
@@ -138,7 +169,7 @@
 
 <div id="content-wrapper">
     <div id="header" class="loading">
-        <h1>onefifty</h1>
+        <h1>150hexagons</h1>
         <h2>12.5 million votes, 150 seats.</h2>
     </div>
 
@@ -146,16 +177,16 @@
 
     <div id="main">
 
-        <div id="selection-box">
+        <div id="selection-box" class="box">
             <dl>
-                <dt>Seat</dt>
-                <dd class="electorate-name"></dd>
+                <dt class="first">Seat</dt>
+                <dd class="electorate-name">&nbsp;</dd>
 
                 <dt>Favourite</dt>
-                <dd id="electorate-favourite"></dd>
+                <dd id="electorate-favourite">&nbsp;</dd>
 
                 <dt>Win Probability</dt>
-                <dd class="electorate-probability"></dd>
+                <dd class="electorate-probability">&nbsp;</dd>
             </dl>
             <div class="clearfix"></div>
         </div>
@@ -166,7 +197,7 @@
 
         </table>
 
-        <div id="history-box nav">
+        <div id="history-box" class="box">
             <a href="#" id="display-toggle">Display as table</a>
             <div id="slider"></div>
         </div>
