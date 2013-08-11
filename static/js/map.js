@@ -10,10 +10,14 @@ displayAsSVG = true;
 TABLE_COLUMNS = 15;
 TOTAL_ELECTORATES = 150;
 
+TICK_DELAY = 1000; //Number of milliseconds to wait on a datapoint while playing
+
+playing = false;
+
 /**
- * Loads history data, populates slider and requests most
- * recent data for display.
- */
+* Loads history data, populates slider and requests most
+* recent data for display.
+*/
 function loadHistory() {
     $.getJSON("/data/history.json", function(rawjson) {
         var histdata = rawjson.data;
@@ -23,22 +27,34 @@ function loadHistory() {
             hist.push(d);
 
         }
-        hist.sort();
-        hist.reverse();
-        console.log(hist);
 
+        var date_comparator = function(d1, d2) {
+            if(d1 > d2) return 1;
+            if(d1 < d2) return -1;
+            return 0;
+        };
+
+        hist.sort(date_comparator);
+        //hist.reverse();
+        console.log(hist);
         var $slider = $("#slider");
         $slider.slider({
-            min: 1,
-            max: hist.length,
-            values: [hist.length],
+            min: 0,
+            max: hist.length - 1,
+            step: 1,
+            value: hist.length - 1,
             slide: function(event, ui) {
+                setPlay(false);
                 loadDataForSliderId(ui.value);
+                console.log("slide");
+            },
+            change: function(event, ui) {
+                loadDataForSliderId(ui.value);
+                console.log("change");
             }
         });
-
-        for(i = hist.length - 1; i >= 0; i--) {
-            var el = $("<label>" + toPrettyDateString(hist[i]) + "</label>").css("left", ((hist.length - 1 - i) / (hist.length - 1) * 100) + "%");
+        for(i = 0; i < hist.length; i++) {
+            var el = $("<label>" + toPrettyDateString(hist[i]) + "</label>").css("left", (i / (hist.length - 1) * 100) + "%");
             $slider.append(el);
         }
 
@@ -53,8 +69,8 @@ function loadHistory() {
 }
 
 /**
- * Converts a date into a standard ISO representation
- */
+* Converts a date into a standard ISO representation
+*/
 function toStdDateString(d) {
     function pad(number) {
         var r = String(number);
@@ -72,14 +88,15 @@ function toPrettyDateString(d) {
 
 
 function loadDataForSliderId(id) {
-    console.log("Loading");
-    loadDataForDate(hist[hist.length - id]);
+//    if(currentDate != toStdDateString(hist[id])) {
+        loadDataForDate(hist[id]);
+//    }
 }
 
 /**
- * Loads the data for the given date from cache or remote,
- * and displays it on the map
- */
+* Loads the data for the given date from cache or remote,
+* and displays it on the map
+*/
 function loadDataForDate(d) {
     var dateStr = toStdDateString(d);
     if(mapData[dateStr] == null) {
@@ -90,7 +107,7 @@ function loadDataForDate(d) {
 }
 
 function loadFirstDateData() {
-    var dateStr = toStdDateString(hist[0]);
+    var dateStr = toStdDateString(hist[hist.length - 1]);
     $.getJSON("/data/data-" + dateStr + ".json", function(data) {
         currentDate = dateStr;
         mapData[dateStr] = data;
@@ -123,9 +140,17 @@ function displayTableData(rawjson, data) {
     }
 }
 /**
- * Displays a set of raw map data on the map.
- */
+* Displays a set of raw map data on the map.
+*/
 function displayDateData(rawjson) {
+    if(playing) {
+        displayDateDataWithPlay(rawjson);
+    } else {
+        displayDateDataBasic(rawjson);
+    }
+}
+
+function displayDateDataBasic(rawjson) {
     var data = rawjson.data;
 
     if(displayAsSVG) {
@@ -154,6 +179,29 @@ function displayDateData(rawjson) {
     currentDate = rawjson.meta["date-data"];
 }
 
+function playTick() {
+    if(playing) {
+        var $slider = $("#slider");
+        var currentIndex = $slider.slider("value");
+        console.log('current: ' + currentIndex);
+        if(currentIndex == hist.length - 1) {
+            //On the final datapoint, pause
+            console.log("Finishing up");
+            togglePlay();
+        }
+        else {
+            //Simulate slider change
+            $slider.slider("value", currentIndex + 1);
+        }
+    }
+
+}
+
+function displayDateDataWithPlay(rawjson) {
+    displayDateDataBasic(rawjson);
+    window.setTimeout(playTick, 1000);
+}
+
 function mouseoverHandler(node) {
     if(currentDate != null && svgLoaded) {
         var id = $(this).attr("id").substr(1);
@@ -180,13 +228,13 @@ function getMapRoot() {
 }
 
 /**
- * Waits until the SVG has loaded, and then attaches event listeners to
- * the hexes.
- *
- * Fixed a bug in how I was embedding the SVG, absolutely could not get
- * the event listener to work again. I might try later, otherwise this
- * timeout method will have to do.
- */
+* Waits until the SVG has loaded, and then attaches event listeners to
+* the hexes.
+*
+* Fixed a bug in how I was embedding the SVG, absolutely could not get
+* the event listener to work again. I might try later, otherwise this
+* timeout method will have to do.
+*/
 function checkSVGReady() {
     if (document.getElementById("map").getSVGDocument() != null) {
         svgLoaded = true;
@@ -250,6 +298,31 @@ $("#display-toggle").on("click", function(e) {
     displayAsSVG = !displayAsSVG;
     displayDateData(mapData[currentDate]);
 });
+
+function togglePlay() {
+    return setPlay(!playing);
+}
+
+function setPlay(on) {
+    playing = on;
+    console.log("Now playing: " + playing);
+    if (!playing) {
+        $(".play-btn").text("Play");
+    }
+    else {
+        $(".play-btn").text("Pause");
+        var position = $("#slider").slider("value");
+        console.log("Position: " + position);
+        if(position == hist.length - 1) {
+            $("#slider").slider("value", 0);
+        } else {
+            window.setTimeout(playTick, TICK_DELAY);
+        }
+    }
+    return false;
+}
+
+$(".play-btn").on("click", togglePlay);
 
 
 

@@ -1,209 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Election Probabilities</title>
-    <style>
-            /* YUI 3.5.0 reset.css (http://developer.yahoo.com/yui/3/cssreset/) - http://cssreset.com */
-        html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
+<title>Election Probabilities</title>
+<style>
+         YUI 3.5.0 reset.css (http://developer.yahoo.com/yui/3/cssreset/) - http://cssreset.com
+    html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
 
-        #map {
-            width:100%;
-            height:1000px;
-            position: absolute;
-            top: -50px;
-            left: 260px;
-        }
+    #map {
+        width:100%;
+        height:1000px;
+        position: absolute;
+        top: -50px;
+        left: 260px;
+    }
 
-        #slider {
-			border: 1px solid #DDDDDD;
-			height: 0;
-			width: 420px;
-        }
+    #slider {
+        border: 1px solid #DDDDDD;
+        height: 0;
+        width: 420px;
+    }
 
-        #slider label {
-            position: absolute;
-            width: 20px;
-            margin-top: 20px;
-            margin-left: -10px;
-            text-align: center;
-        }
+    #slider label {
+        position: absolute;
+        width: 20px;
+        margin-top: 20px;
+        margin-left: -10px;
+        text-align: center;
+    }
 
-        .hidden {
-            display: none;
-        }
-        #map.svg-hidden {
-            height:0px;
-        }
+    .hidden {
+        display: none;
+    }
+    #map.svg-hidden {
+        height:0px;
+    }
 
-        html, body, #loading-box {
-            background-color: #fafafa;
-        }
+    html, body, #loading-box {
+        background-color: #fafafa;
+    }
 
-        #content-wrapper {
-            padding: 1em 0 0 2em;
-        }
+    #content-wrapper {
+        padding: 1em 0 0 2em;
+    }
 
-        h1 {
-            font-family: museo-slab, Rockwell, serif;
-            font-size: 5em;
-            letter-spacing: -2px;
-        }
+    h1 {
+        font-family: museo-slab, Rockwell, serif;
+        font-size: 5em;
+        letter-spacing: -2px;
+    }
 
-        h2 {
-            font-family: nimbus-sans, Arial, sans-serif;
-            font-size: 2em;
-            letter-spacing: -2px;
-            font-weight: 300;
-        }
+    h2 {
+        font-family: nimbus-sans, Arial, sans-serif;
+        font-size: 2em;
+        letter-spacing: -2px;
+        font-weight: 300;
+    }
 
-        #selection-box {
-            width: 300px;
-            position: absolute;
-            z-index: 100;
-        }
+    #selection-box {
+        width: 300px;
+        position: absolute;
+        z-index: 100;
+    }
 
-        .box {
-            background-color: #FFFFFF;
-            border: 1px solid #EEEEEE;
-            font-family: nimbus-sans-condensed, Arial, sans-serif;
-            padding: 10px 20px 20px;
-            margin-top: 2em;
-	    box-shadow: 0 0 20px #DDDDDD;
-	    
-	}
+    .box {
+        background-color: #FFFFFF;
+        border: 1px solid #EEEEEE;
+        font-family: nimbus-sans-condensed, Arial, sans-serif;
+        padding: 10px 20px 20px;
+        margin-top: 2em;
+        box-shadow: 0 0 20px #DDDDDD;
 
-        .float-me {
-            position:fixed !important;
-            top: 20px;
-        }
+    }
 
-        table {
-            width:100%;
-            height:500px;
-        }
+    .float-me {
+        position:fixed !important;
+        top: 20px;
+    }
 
-        td.fav-lib {
-            background-color: #0000ff;
-        }
+    table {
+        width:100%;
+        height:500px;
+    }
 
-        td.fav-alp {
-            background-color: #ff0000;
-        }
+    td.fav-lib {
+        background-color: #0000ff;
+    }
+
+    td.fav-alp {
+        background-color: #ff0000;
+    }
 
 
 
-        .clearfix {
-            clear:both;
-        }
+    .clearfix {
+        clear:both;
+    }
 
-	dl {
-	    margin-top: 13px;
-	}
+    dl {
+        margin-top: 13px;
+    }
 
-        dt {
-            float:left;
-            clear:left;
-            margin-right: 1em;
-            margin-top: 13px;
-            color: #aaa;
-            font-size: 1.2em;
-        }
-	
-        dd {
-            font-size: 2.5em;
-	    text-align: right;
-	    margin-right: 15px;
-	}
+    dt {
+        float:left;
+        clear:left;
+        margin-right: 1em;
+        margin-top: 13px;
+        color: #aaa;
+        font-size: 1.2em;
+    }
 
-	a.ui-slider-handle {
-	    background: url('/static/img/marker.png') no-repeat 50% 50% transparent !important;
-	    border: none !important;
-	    margin-top: -4px;
-	}
+    dd {
+        font-size: 2.5em;
+        text-align: right;
+        margin-right: 15px;
+    }
 
-	    dd.electorate-probability {
-            font-size: 4em;
-        }
+    a.ui-slider-handle {
+        background: url('/static/img/marker.png') no-repeat 50% 50% transparent !important;
+        border: none !important;
+        margin-top: -4px;
+    }
 
-	.fav-name-lib {
-	    color: blue;
-        }
+    dd.electorate-probability {
+        font-size: 4em;
+    }
 
-	.fav-name-alp {
-	    color: red;
-        }
+    .fav-name-lib {
+        color: blue;
+    }
 
-	#history-box {
-	    bottom: 30px;
-	    padding: 2em;
-	    height: 65px;
-	    position: fixed;
-	}	
+    .fav-name-alp {
+        color: red;
+    }
 
-	.has-table #history-box,
-        .has-table #selection-box {
-	    position: static;
-	}
+    #history-box {
+        bottom: 30px;
+        padding: 2em;
+        height: 65px;
+        position: fixed;
+    }
 
-	.has-table #slider {
-	    width: 250px;
-	}
+    .has-table #history-box,
+    .has-table #selection-box {
+        position: static;
+    }
 
-	.has-table #history-box {
-	    width: 276px;
-	}
-	
-	table#prob-table {
-	    position: absolute;
-	    width: 700px;
-	    height: 450px;
-	    left: 415px;
-	    top: 184px;
-	}
+    .has-table #slider {
+        width: 250px;
+    }
 
-	#display-toggle {
-		display: block;
-		font-size: 1.2em;
-		height: 35px;
-		margin-top: -10px;
-		margin-bottom: 15px;
-		outline:0;
-		text-align: center;
-		color: black;
-	}
+    .has-table #history-box {
+        width: 276px;
+    }
 
-	#display-toggle:hover {
-		color: #888;
-		text-decoration:none;
-	}
-		
-	label {
-	    font-family: nimbus-sans-condensed, Arial, sans-serif;
-	}
+    table#prob-table {
+        position: absolute;
+        width: 700px;
+        height: 450px;
+        left: 415px;
+        top: 184px;
+    }
 
-        #loading-box {
-            position: absolute;
-            z-index: 200;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
+    #display-toggle {
+        display: block;
+        font-size: 1.2em;
+        height: 35px;
+        margin-top: -10px;
+        margin-bottom: 15px;
+        outline:0;
+        text-align: center;
+        color: black;
+    }
 
-        #loading-box h2 {
-            padding-top: 200px;
-            text-align: center;
-        }
+    #display-toggle:hover {
+        color: #888;
+        text-decoration:none;
+    }
 
-        #header.loading {
-            z-index: 300;
-            position: absolute;
-        }
+    label {
+        font-family: nimbus-sans-condensed, Arial, sans-serif;
+    }
 
-    </style>
-    <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
-    <script type="text/javascript" src="//use.typekit.net/arn5ccn.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    #loading-box {
+        position: absolute;
+        z-index: 200;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    #loading-box h2 {
+        padding-top: 200px;
+        text-align: center;
+    }
+
+    #header.loading {
+        z-index: 300;
+        position: absolute;
+    }
+
+    .play-btn {
+
+    }
+
+</style>
+<link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
+<script type="text/javascript" src="//use.typekit.net/arn5ccn.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-43101513-1', '150hexagons.com');ga('send', 'pageview');</script>
@@ -228,6 +232,9 @@
 
                 <dt>Win Probability</dt>
                 <dd class="electorate-probability">&nbsp;</dd>
+
+                <dt>Description</dt>
+                <dd class="electorate-description">&nbsp;</dd>
             </dl>
             <div class="clearfix"></div>
         </div>
@@ -240,26 +247,26 @@
 
         <div id="history-box" class="box">
             <a href="#" id="display-toggle">Display as table</a>
-            <div id="slider"></div>
+            <a href="#" class="play-btn">Play</a>
+            <div id="slider">
+            </div>
         </div>
     </div>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="static/js/map.js"></script>
 
 <script>
-
     var selectionBoxOffset = 0;
 
     $(document).ready(function() {
         loadHistory();
         checkSVGReady();
 
-        $("#slider").slider({range: false, values: [1]});
         selectionBoxOffset = 140; //$("#selection-box").offset().top;
-    })
+    });
 
     $(window).scroll(function() {
         var scrollOffset = window.pageYOffset;
