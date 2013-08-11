@@ -2,6 +2,7 @@ hist = [];
 
 currentDate = null;
 mapData = {};
+geodata = null;
 
 svgLoaded = false;
 
@@ -21,6 +22,7 @@ playing = false;
 function loadHistory() {
     $.getJSON("/data/history.json", function(rawjson) {
         var histdata = rawjson.data;
+        geodata = rawjson.geo;
 
         for(var i = 0; i < histdata.length; i++) {
             var d = new Date(histdata[i]);
@@ -209,7 +211,10 @@ function mouseoverHandler(node) {
             id = mapData[currentDate]["order"][id - 1];
         }
         var elec = mapData[currentDate]["data"][parseInt(id) - 1];
-        $("dd.electorate-name").text(elec.name);
+
+        var geo = geodata[id - 1];
+        $("dd.electorate-name").text(geo.name);
+        $("dd.electorate-description").text(geo.desc + " / " + (geo.metro ? "Metro" : "Regional"));
         var $ddfav = $("dd#electorate-favourite");
         $ddfav.text(elec.fav);
         var favclass = 'fav-name-other';

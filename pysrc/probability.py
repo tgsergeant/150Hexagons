@@ -11,6 +11,7 @@ OUTFOLDER = "../data/"
 def main():
     infiles = os.listdir(INPUTFOLDER)
     datahistory = []
+    geoinfo = []
 
     for fname in infiles:
         if fname.startswith("data-"):
@@ -19,6 +20,16 @@ def main():
             datahistory.append(filedate)
             toJSON(OUTFOLDER + "data-" + filedate + ".json", filedate)
 
+    with open(INPUTFOLDER + "geocoding.csv") as geofile:
+        georeader = csv.reader(geofile)
+        next(georeader)
+        for elec in georeader:
+            elecinfo = {
+                'name': " ".join([w.capitalize() for w in elec[2].split()]),
+                'desc': elec[3],
+                'metro': elec[4] == "Metro",
+            }
+            geoinfo.append(elecinfo)
 
     with open(OUTFOLDER + "history.json", 'w') as histfile:
         fulljson = {
@@ -26,8 +37,9 @@ def main():
                 'date-gen':datetime.date.today().isoformat()
             },
             'data':datahistory,
+            'geo':geoinfo,
         }
-        json.dump(fulljson, histfile)
+        json.dump(fulljson, histfile, separators=(',',':'))
 
 def toJSON(outfile, filedate):
     electorates = []
@@ -39,7 +51,7 @@ def toJSON(outfile, filedate):
         for line in oreader:
             elec = {
                 'id': 'p' + line[0],
-                'name': " ".join([w.capitalize() for w in line[1].split()]),
+#                'name': " ".join([w.capitalize() for w in line[1].split()]),
                 'alpha': "{:.3}".format(float(line[3])),
                 'fav': line[4],
                 'p': "{:.0f}".format(100 * float(line[5])),
