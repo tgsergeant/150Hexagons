@@ -11,7 +11,7 @@
             height:1000px;
             position: absolute;
             top: -50px;
-            left: 160px;
+            left: 260px;
         }
 
         #slider {
@@ -113,13 +113,15 @@
             font-size: 2.5em;
 	    text-align: right;
 	    margin-right: 15px;
-        }
-	
-		a.ui-slider-handle {
-				background: url('/static/img/marker.png') no-repeat 0 0 transparent !important;
-		}
+	}
 
-        dd.electorate-probability {
+	a.ui-slider-handle {
+	    background: url('/static/img/marker.png') no-repeat 50% 50% transparent !important;
+	    border: none !important;
+	    margin-top: -4px;
+	}
+
+	    dd.electorate-probability {
             font-size: 4em;
         }
 
@@ -131,15 +133,53 @@
 	    color: red;
         }
 
-		#history-box {
-				bottom: 30px;
-				height: 50px;
-				position: fixed;
-		}
+	#history-box {
+	    bottom: 30px;
+	    padding: 2em;
+	    height: 65px;
+	    position: fixed;
+	}	
+
+	.has-table #history-box,
+        .has-table #selection-box {
+	    position: static;
+	}
+
+	.has-table #slider {
+	    width: 250px;
+	}
+
+	.has-table #history-box {
+	    width: 276px;
+	}
+	
+	table#prob-table {
+	    position: absolute;
+	    width: 700px;
+	    height: 450px;
+	    left: 415px;
+	    top: 184px;
+	}
+
+	#display-toggle {
+		display: block;
+		font-size: 1.2em;
+		height: 35px;
+		margin-top: -10px;
+		margin-bottom: 15px;
+		outline:0;
+		text-align: center;
+		color: black;
+	}
+
+	#display-toggle:hover {
+		color: #888;
+		text-decoration:none;
+	}
 		
-		label {
-			font-family: nimbus-sans-condensed, Arial, sans-serif;
-	    }
+	label {
+	    font-family: nimbus-sans-condensed, Arial, sans-serif;
+	}
 
         #loading-box {
             position: absolute;

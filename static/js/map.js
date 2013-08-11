@@ -246,6 +246,7 @@ $("#display-toggle").on("click", function(e) {
         $("#map").removeClass("svg-hidden");
         $("#prob-table").addClass("hidden");
     }
+    $("body").toggleClass("has-table");
     displayAsSVG = !displayAsSVG;
     displayDateData(mapData[currentDate]);
 });
