@@ -85,7 +85,7 @@ function toStdDateString(d) {
 }
 
 function toPrettyDateString(d) {
-    return d.getDate() + "/" + d.getMonth();
+    return d.getDate() + "/" + (d.getMonth() + 1);
 }
 
 
