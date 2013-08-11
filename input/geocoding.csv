@@ -1,0 +1,151 @@
+SeatCd,State,Seat,Location_DS,Metro/Regional,Sydney,Melbourne,Brisbane,Adelaide,Perth
+1,ACT,CANBERRA,ACT,Regional,,,,,
+2,ACT,FRASER,ACT,Regional,,,,,
+3,NSW,BANKS,Southern Sydney,Metro,1,0,0,0,0
+4,NSW,BARTON,Southern Sydney,Metro,1,0,0,0,0
+5,NSW,BENNELONG,Northern Sydney,Metro,1,0,0,0,0
+6,NSW,BEROWRA,Northern Sydney,Metro,1,0,0,0,0
+7,NSW,BLAXLAND,Western Sydney,Metro,1,0,0,0,0
+8,NSW,BRADFIELD,Northern Sydney,Metro,1,0,0,0,0
+9,NSW,CALARE,West NSW,Regional,0,0,0,0,0
+10,NSW,CHARLTON,Central Coast NSW,Regional,0,0,0,0,0
+11,NSW,CHIFLEY,Western Sydney,Metro,1,0,0,0,0
+12,NSW,COOK,Southern Sydney,Metro,1,0,0,0,0
+13,NSW,COWPER,Northern NSW,Regional,0,0,0,0,0
+14,NSW,CUNNINGHAM,Wollongong,Regional,0,0,0,0,0
+15,NSW,DOBELL,Central Coast NSW,Regional,0,0,0,0,0
+16,NSW,EDEN-MONARO,Southern NSW,Regional,0,0,0,0,0
+17,NSW,FARRER,Western NSW,Regional,0,0,0,0,0
+18,NSW,FOWLER,Western Sydney,Metro,1,0,0,0,0
+19,NSW,GILMORE,Southern NSW,Regional,0,0,0,0,0
+20,NSW,GRAYNDLER,Inner Sydney,Metro,1,0,0,0,0
+21,NSW,GREENWAY,Western Sydney,Metro,1,0,0,0,0
+22,NSW,HUGHES,Western Sydney,Metro,1,0,0,0,0
+23,NSW,HUME,West NSW,Regional,0,0,0,0,0
+24,NSW,HUNTER,North NSW,Regional,0,0,0,0,0
+25,NSW,KINGSFORD-SMITH,Inner Sydney,Metro,1,0,0,0,0
+26,NSW,LINDSAY,Western Sydney,Metro,1,0,0,0,0
+27,NSW,LYNE,Northern NSW,Regional,0,0,0,0,0
+28,NSW,MACARTHUR,Southern NSW,Regional,0,0,0,0,0
+29,NSW,MACKELLAR,Northern Sydney,Metro,1,0,0,0,0
+30,NSW,MACQUARIE,Western NSW,Regional,0,0,0,0,0
+31,NSW,MCMAHON,Western Sydney,Metro,1,0,0,0,0
+32,NSW,MITCHELL,Western Sydney,Metro,1,0,0,0,0
+33,NSW,NEW ENGLAND,Northern NSW,Regional,0,0,0,0,0
+34,NSW,NEWCASTLE,Northern NSW,Regional,0,0,0,0,0
+35,NSW,NORTH SYDNEY,Northern Sydney,Metro,1,0,0,0,0
+36,NSW,PAGE,Northern NSW,Regional,0,0,0,0,0
+37,NSW,PARKES,Western NSW,Regional,0,0,0,0,0
+38,NSW,PARRAMATTA,Western Sydney,Metro,1,0,0,0,0
+39,NSW,PATERSON,Northern NSW,Regional,0,0,0,0,0
+40,NSW,REID,Western Sydney,Metro,1,0,0,0,0
+41,NSW,RICHMOND,Northern NSW,Regional,0,0,0,0,0
+42,NSW,RIVERINA,Western NSW,Regional,0,0,0,0,0
+43,NSW,ROBERTSON,Central Coast NSW,Regional,0,0,0,0,0
+44,NSW,SHORTLAND,Central Coast NSW,Regional,0,0,0,0,0
+45,NSW,SYDNEY,Inner Sydney,Metro,1,0,0,0,0
+46,NSW,THROSBY,Southern NSW,Regional,0,0,0,0,0
+47,NSW,WARRINGAH,Northern Sydney,Metro,1,0,0,0,0
+48,NSW,WATSON,Western Sydney,Metro,1,0,0,0,0
+49,NSW,WENTWORTH,Inner Sydney,Metro,1,0,0,0,0
+50,NSW,WERRIWA,Western Sydney,Metro,1,0,0,0,0
+51,NT,LINGIARI,NT,Regional,0,0,0,0,0
+52,NT,SOLOMON,Darwin,Regional,0,0,0,0,0
+53,QLD,BLAIR,South East Regional Qld,Regional,0,0,0,0,0
+54,QLD,BONNER,East Brisbane,Metro,0,0,1,0,0
+55,QLD,BOWMAN,East Brisbane,Metro,0,0,1,0,0
+56,QLD,BRISBANE,Inner Brisbane,Metro,0,0,1,0,0
+57,QLD,CAPRICORNIA,Rockhampton,Regional,0,0,0,0,0
+58,QLD,DAWSON,"Mackay, Proserpine",Regional,0,0,0,0,0
+59,QLD,DICKSON,Northern Brisbane,Metro,0,0,1,0,0
+60,QLD,FADDEN,Southern Brisbane,Metro,0,0,1,0,0
+61,QLD,FAIRFAX,Maroochydore,Regional,0,0,0,0,0
+62,QLD,FISHER,Sunshine Coast,Regional,0,0,0,0,0
+63,QLD,FLYNN,"Gladstone, Emerald",Regional,0,0,0,0,0
+64,QLD,FORDE,Southern Brisbane,Metro,0,0,1,0,0
+65,QLD,GRIFFITH,Inner Brisbane,Metro,0,0,1,0,0
+66,QLD,GROOM,Toowoomba,Regional,0,0,0,0,0
+67,QLD,HERBERT,Townsville,Regional,0,0,0,0,0
+68,QLD,HINKLER,"Bundaberg, Hervey Bay",Regional,0,0,0,0,0
+69,QLD,KENNEDY,"Mt Isa, Charters Towers",Regional,0,0,0,0,0
+70,QLD,LEICHHARDT,"Cairns, Cape York",Regional,0,0,0,0,0
+71,QLD,LILLEY,Northern Brisbane,Metro,0,0,1,0,0
+72,QLD,LONGMAN,Sunshine Coast,Regional,0,0,0,0,0
+73,QLD,MARANOA,Far West Qld,Regional,0,0,0,0,0
+74,QLD,MCPHERSON,Gold Coast,Regional,0,0,0,0,0
+75,QLD,MONCRIEFF,Gold Cast,Regional,0,0,0,0,0
+76,QLD,MORETON,Southern Brisbane,Metro,0,0,1,0,0
+77,QLD,OXLEY,Southern Brisbane,Metro,0,0,1,0,0
+78,QLD,PETRIE,Northern Brisbane,Metro,0,0,1,0,0
+79,QLD,RANKIN,Southern Brisbane,Metro,0,0,1,0,0
+80,QLD,RYAN,Western Brisbane,Metro,0,0,1,0,0
+81,QLD,WIDE BAY,"Noosa, Maryborough, Gympie",Regional,0,0,0,0,0
+82,QLD,WRIGHT,Beaudesert,Regional,0,0,0,0,0
+83,SA,ADELAIDE,Adelaide,Metro,0,0,0,1,0
+84,SA,BARKER,"Mount Gambier, Renmark",Regional,0,0,0,0,0
+85,SA,BOOTHBY,Adelaide,Metro,0,0,0,1,0
+86,SA,GREY,"Port Augusta, Whyalla, Coober Pedy",Regional,0,0,0,0,0
+87,SA,HINDMARSH,Adelaide,Metro,0,0,0,1,0
+88,SA,KINGSTON,Adelaide,Metro,0,0,0,1,0
+89,SA,MAKIN,Adelaide,Metro,0,0,0,1,0
+90,SA,MAYO,Eastern Adelaide and hinterland,Metro,0,0,0,1,0
+91,SA,PORT ADELAIDE,Adelaide,Metro,0,0,0,1,0
+92,SA,STURT,Adelaide,Metro,0,0,0,1,0
+93,SA,WAKEFIELD,Outer Adelaide,Metro,0,0,0,1,0
+94,TAS,BASS,NE Tasmania,Regional,0,0,0,0,0
+95,TAS,BRADDON,NW Tasmania,Regional,0,0,0,0,0
+96,TAS,DENISON,Hobart,Regional,0,0,0,0,0
+97,TAS,FRANKLIN,Hobart,Regional,0,0,0,0,0
+98,TAS,LYONS,Central Tasmania,Regional,0,0,0,0,0
+99,VIC,ASTON,Eastern Melbourne,Metro,0,1,0,0,0
+100,VIC,BALLARAT,Ballarat,Regional,0,0,0,0,0
+101,VIC,BATMAN,North Melbourne,Metro,0,1,0,0,0
+102,VIC,BENDIGO,Bendigo,Regional,0,0,0,0,0
+103,VIC,BRUCE,Eastern Melbourne,Metro,0,1,0,0,0
+104,VIC,CALWELL,Northern Melbourne,Metro,0,1,0,0,0
+105,VIC,CASEY,Eastern Melbourne,Metro,0,1,0,0,0
+106,VIC,CHISHOLM,Eastern Melbourne,Metro,0,1,0,0,0
+107,VIC,CORANGAMITE,"Geelong, Anglesea, Queenscliff",Regional,0,0,0,0,0
+108,VIC,CORIO,Geelong,Regional,0,0,0,0,0
+109,VIC,DEAKIN,Eastern Melbourne,Metro,0,1,0,0,0
+110,VIC,DUNKLEY,Southern Melbourne,Metro,0,1,0,0,0
+111,VIC,FLINDERS,Southern Melbourne,Metro,0,1,0,0,0
+112,VIC,GELLIBRAND,Western Melbourne,Metro,0,1,0,0,0
+113,VIC,GIPPSLAND,East Victoria,Regional,0,0,0,0,0
+114,VIC,GOLDSTEIN,Southern Melbourne,Metro,0,1,0,0,0
+115,VIC,GORTON,Western Melbourne,Metro,0,1,0,0,0
+116,VIC,HIGGINS,Eastern Melbourne,Metro,0,1,0,0,0
+117,VIC,HOLT,Eastern Melbourne,Metro,0,1,0,0,0
+118,VIC,HOTHAM,Eastern Melbourne,Metro,0,1,0,0,0
+119,VIC,INDI,North-East Victoria,Regional,0,0,0,0,0
+120,VIC,ISAACS,Southern Melbourne,Metro,0,1,0,0,0
+121,VIC,JAGAJAGA,Northern Melbourne,Metro,0,1,0,0,0
+122,VIC,KOOYONG,Eastern Melbourne,Metro,0,1,0,0,0
+123,VIC,LA TROBE,Eastern Melbourne,Metro,0,1,0,0,0
+124,VIC,LALOR,Western Melbourne,Metro,0,1,0,0,0
+125,VIC,MALLEE,North-West Victoria,Regional,0,0,0,0,0
+126,VIC,MARIBYRNONG,Western Melbourne,Metro,0,1,0,0,0
+127,VIC,MCEWEN,Northern Melbourne,Metro,0,1,0,0,0
+128,VIC,MCMILAN,"Gippsland, Moe, Wonthaggi",Regional,0,0,0,0,0
+129,VIC,MELBOURNE,Inner Melbourne,Metro,0,1,0,0,0
+130,VIC,MELBOURNE PORTS,Inner Melbourne,Metro,0,1,0,0,0
+131,VIC,MENZIES,Eastern Melbourne,Metro,0,1,0,0,0
+132,VIC,MURRAY,Northern Victoria,Regional,0,0,0,0,0
+133,VIC,SCULLIN,Northern Melbourne,Metro,0,1,0,0,0
+134,VIC,WANNON,Western Victoria,Regional,0,0,0,0,0
+135,VIC,WILLS,Northern Melbourne,Metro,0,1,0,0,0
+136,WA,BRAND,"Kwinana, Rockingham",Regional,0,0,0,0,0
+137,WA,CANNING,South-East Perth,Metro,0,0,0,0,1
+138,WA,COWAN,Northern Perth,Metro,0,0,0,0,1
+139,WA,CURTIN,Inner Perth,Metro,0,0,0,0,1
+140,WA,DURACK,"Northern WA, Kununurra, Broome, Geraldton",Regional,0,0,0,0,0
+141,WA,FORREST,South-West WA,Regional,0,0,0,0,0
+142,WA,FREMANTLE,"Southern Perth, Fremantle",Metro,0,0,0,0,1
+143,WA,HASLUCK,Eastern Perth,Metro,0,0,0,0,1
+144,WA,MOORE,Northern Perth,Metro,0,0,0,0,1
+145,WA,O'CONNOR,"East WA, Kalgoorlie, Albany, Esperance",Regional,0,0,0,0,0
+146,WA,PEARCE,Northern Perth,Metro,0,0,0,0,1
+147,WA,PERTH,Inner Perth,Metro,0,0,0,0,1
+148,WA,STIRLING,Northern Perth,Metro,0,0,0,0,1
+149,WA,SWAN,Inner Perth,Metro,0,0,0,0,1
+150,WA,TANGNEY,Southern Perth,Metro,0,0,0,0,1
