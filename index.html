@@ -57,7 +57,7 @@
     }
 
     #selection-box {
-        width: 300px;
+        width: 350px;
         position: absolute;
         z-index: 100;
     }
@@ -140,10 +140,10 @@
     }
 
     #history-box {
-        bottom: 30px;
+        bottom: 0;
         padding: 2em;
-        height: 65px;
-        position: fixed;
+        position: absolute;
+	left: 0;
     }
 
     .has-table #history-box,
@@ -209,6 +209,17 @@
     .play-btn {
 
     }
+    
+    dt.description {
+        display:none;
+    }
+
+    dd.electorate-description {
+        color: #999;
+	font-size: 1.2em;
+	margin-top: -3px;
+    }
+ 
 
 </style>
 <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
@@ -233,7 +244,7 @@
                 <dt class="first">Seat</dt>
                 <dd class="electorate-name">&nbsp;</dd>
 
-                <dt>Description</dt>
+                <dt class="description">Description</dt>
                 <dd class="electorate-description">&nbsp;</dd>
 
                 <dt>Favourite</dt>
