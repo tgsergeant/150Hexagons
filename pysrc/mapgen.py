@@ -1,7 +1,7 @@
 import csv
 
-A = (16, -15)
-B = (500, 750)
+A = (17, -15)
+B = (600, 750)
 
 MAPFILE = "../static/img/map.svg"
 INPUTFOLDER = "../input/"

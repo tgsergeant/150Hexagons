@@ -17,7 +17,8 @@
     #slider {
         border: 1px solid #DDDDDD;
         height: 0;
-        width: 620px;
+        width: 70%;
+        margin: 0 auto;
     }
 
     #slider label {
@@ -142,8 +143,9 @@
     #history-box {
         bottom: 0;
         padding: 2em;
-        position: absolute;
+        position: fixed;
 	left: 0;
+        width: 100%;
     }
 
     .has-table #history-box,
@@ -206,8 +208,21 @@
         position: absolute;
     }
 
-    .play-btn {
+    .control img {
+        float: left;
+        width: 50px;
+    }
+    
+    .control:hover {
+        opacity: 0.6;
+    }
 
+    .play-btn {
+        
+    }
+    
+    .pause-btn {
+	display: none;
     }
     
     dt.description {
@@ -220,6 +235,20 @@
 	margin-top: -3px;
     }
  
+    #legend {
+        float: left;
+        margin-top: 480px;
+    }
+
+    #legend img {
+        width: 400px;
+    }
+    
+    .clearbox {
+        clear:both;
+        height: 180px;
+        width: 100px;
+    }
 
 </style>
 <link rel="stylesheet" href="static/css/jquery-ui-1.10.3.custom.css" type="text/css"/>
@@ -255,16 +284,23 @@
             </dl>
             <div class="clearfix"></div>
         </div>
+        
+        <div id="legend" class="box">
+            <a href="#" id="display-toggle">Display as table</a>
+            <img src="/static/img/legend.png" alt="Legend - Colour indicates preferred party, shading indicates probability of win, with darker as a higher probability." />
+        </div>
 
         <embed id="map" src="/static/img/map.svg" type="image/svg+xml" class="svg-hidden"></embed>
 
         <table id="prob-table" class="hidden" border="1">
 
         </table>
+        
+        <div class="clearbox">&nbsp;</div>
 
         <div id="history-box" class="box">
-            <a href="#" id="display-toggle">Display as table</a>
-            <a href="#" class="play-btn">Play</a>
+            <a href="#" class="play-btn control"><img src="/static/img/play.png" alt="Play" /></a>
+            <a href="#" class="pause-btn control"><img src="/static/img/pause.png" alt="Play" /></a>
             <div id="slider">
             </div>
         </div>

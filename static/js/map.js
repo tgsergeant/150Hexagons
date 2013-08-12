@@ -316,10 +316,12 @@ function setPlay(on) {
     playing = on;
     console.log("Now playing: " + playing);
     if (!playing) {
-        $(".play-btn").text("Play");
+	$(".pause-btn").hide();
+	$(".play-btn").show();
     }
     else {
-        $(".play-btn").text("Pause");
+	$(".play-btn").hide();
+	$(".pause-btn").show();
         var position = $("#slider").slider("value");
         console.log("Position: " + position);
         if(position == hist.length - 1) {
@@ -332,6 +334,7 @@ function setPlay(on) {
 }
 
 $(".play-btn").on("click", togglePlay);
+$(".pause-btn").on("click", togglePlay);
 
 
 
