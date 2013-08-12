@@ -1,6 +1,8 @@
 hist = [];
 
 currentDate = null;
+currentHover = null;
+
 mapData = {};
 geodata = null;
 
@@ -154,6 +156,7 @@ function displayDateData(rawjson) {
     } else {
         displayDateDataBasic(rawjson);
     }
+    updateMouseover();
 }
 
 function displayDateDataBasic(rawjson) {
@@ -208,27 +211,39 @@ function displayDateDataWithPlay(rawjson) {
     window.setTimeout(playTick, 1000);
 }
 
+function displayMouseover(id) {
+    var elec = mapData[currentDate]["data"][parseInt(id) - 1];
+
+    var geo = geodata[id - 1];
+    $("dd.electorate-name").text(geo.name);
+    $("dd.electorate-description").text(geo.desc + " / " + (geo.metro ? "Metro" : "Regional"));
+    var $ddfav = $("dd#electorate-favourite");
+    $ddfav.text(elec.fav);
+    var favclass = 'fav-name-other';
+    if (elec.fav == 'ALP') {
+        favclass = 'fav-name-alp';
+    } else if (elec.fav == 'Coalition') {
+        favclass = 'fav-name-lib';
+    }
+    $ddfav.attr('class', favclass);
+    $("dd.electorate-probability").text(Math.round(elec.p) + "%");
+
+    currentHover = id;
+}
+
 function mouseoverHandler(node) {
     if(currentDate != null && svgLoaded) {
         var id = $(this).attr("id").substr(1);
         if(!displayAsSVG) {
             id = mapData[currentDate]["order"][id - 1];
         }
-        var elec = mapData[currentDate]["data"][parseInt(id) - 1];
+        displayMouseover(id);
+    }
+}
 
-        var geo = geodata[id - 1];
-        $("dd.electorate-name").text(geo.name);
-        $("dd.electorate-description").text(geo.desc + " / " + (geo.metro ? "Metro" : "Regional"));
-        var $ddfav = $("dd#electorate-favourite");
-        $ddfav.text(elec.fav);
-        var favclass = 'fav-name-other';
-        if(elec.fav == 'ALP') {
-            favclass = 'fav-name-alp';
-        } else if(elec.fav == 'Coalition') {
-            favclass = 'fav-name-lib';
-        }
-        $ddfav.attr('class', favclass);
-        $("dd.electorate-probability").text(Math.round(elec.p) + "%");
+function updateMouseover() {
+    if(currentHover != null) {
+        displayMouseover(currentHover);
     }
 }
 
