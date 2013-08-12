@@ -1,6 +1,6 @@
 import csv
 
-A = (15, -15)
+A = (16, -15)
 B = (500, 750)
 
 MAPFILE = "../static/img/map.svg"
