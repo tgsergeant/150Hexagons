@@ -52,7 +52,7 @@ def toJSON(outfile, filedate):
             elec = {
                 'id': 'p' + line[0],
 #                'name': " ".join([w.capitalize() for w in line[1].split()]),
-                'alpha': "{:.3}".format(float(line[3])),
+                'a': "{:.3}".format(float(line[3])),
                 'fav': line[4],
                 'p': "{:.0f}".format(100 * float(line[5])),
             }
@@ -60,11 +60,14 @@ def toJSON(outfile, filedate):
                 elec['colour'] = line[2]
             electorates.append(elec)
 
-#    with open(INPUTFOLDER + "rectangle-" + filedate + ".csv") as oddsfile:
-#        oreader = csv.reader(oddsfile)
-#        next(oreader)
-#        for line in oreader:
-#            elec_order.append(int(line[0]))
+            p_alp = float(line[5])
+            if elec['fav'] != 'ALP':
+                p_alp = 1 - p_alp
+            elec_order.append((line[0], p_alp))
+
+    elec_order.sort(key=lambda e: e[1])
+    elec_order.reverse()
+    elec_order = list(map(lambda e: int(e[0]), elec_order))
 
     with open(outfile, "w") as out:
         fulljson = {
