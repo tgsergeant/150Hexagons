@@ -85,7 +85,11 @@ function toStdDateString(d) {
 }
 
 function toPrettyDateString(d) {
-    return d.getDate() + "/" + (d.getMonth() + 1);
+    if(d.getFullYear() == 2013) {
+        return d.getDate() + "/" + (d.getMonth() + 1);
+    } else {
+        return d.getFullYear();
+    }
 }
 
 
@@ -126,7 +130,7 @@ function displayTableData(rawjson, data) {
         }
         var $td = $("#t" + (j + 1));
 
-        var stylestr = "opacity:" + elec.alpha;
+        var stylestr = "opacity:" + elec.a;
 
         if (elec['colour'] != null) {
             stylestr += ";background-color:" + elec.colour;
@@ -161,7 +165,7 @@ function displayDateDataBasic(rawjson) {
         for(var i = 0; i < data.length; i++) {
             var elec = data[i];
             var $path = $("#" + elec.id, svgRoot);
-            var stylestr = "fill-opacity:" + elec.alpha;
+            var stylestr = "fill-opacity:" + elec.a;
 
             if(elec['colour'] != null) {
                 stylestr += ";fill:" + elec.colour;
