@@ -85,7 +85,11 @@ function toStdDateString(d) {
 }
 
 function toPrettyDateString(d) {
-    return d.getDate() + "/" + (d.getMonth() + 1);
+    if(d.getFullYear() == 2013) {
+        return d.getDate() + "/" + (d.getMonth() + 1);
+    } else {
+        return d.getFullYear();
+    }
 }
 
 
