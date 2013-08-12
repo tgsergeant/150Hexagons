@@ -297,11 +297,13 @@ $("#display-toggle").on("click", function(e) {
         $(this).text("Display as map");
         $("#map").addClass("svg-hidden");
         $("#prob-table").removeClass("hidden");
+        $("#map-labels").hide();
     } else {
         //Currently displaying as a table
         $(this).text("Display as table");
         $("#map").removeClass("svg-hidden");
         $("#prob-table").addClass("hidden");
+        $("#map-labels").show();
     }
     $("body").toggleClass("has-table");
     displayAsSVG = !displayAsSVG;
