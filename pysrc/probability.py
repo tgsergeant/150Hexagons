@@ -6,7 +6,7 @@ import json
 import os
 
 INPUTFOLDER = "../input/"
-OUTFOLDER = "../pages/data/"
+OUTFOLDER = "../static/data/"
 
 def main():
     infiles = os.listdir(INPUTFOLDER)
