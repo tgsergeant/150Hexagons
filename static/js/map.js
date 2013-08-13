@@ -22,7 +22,7 @@ playing = false;
 * recent data for display.
 */
 function loadHistory() {
-    $.getJSON("/data/history.json", function(rawjson) {
+    $.getJSON("/static/data/history.json", function(rawjson) {
         var histdata = rawjson.data;
         geodata = rawjson.geo;
 
@@ -108,7 +108,7 @@ function loadDataForSliderId(id) {
 function loadDataForDate(d) {
     var dateStr = toStdDateString(d);
     if(mapData[dateStr] == null) {
-        $.getJSON("/data/data-" + dateStr +".json", displayDateData);
+        $.getJSON("/static/data/data-" + dateStr +".json", displayDateData);
     } else {
         displayDateData(mapData[dateStr]);
     }
@@ -116,7 +116,7 @@ function loadDataForDate(d) {
 
 function loadFirstDateData() {
     var dateStr = toStdDateString(hist[hist.length - 1]);
-    $.getJSON("/data/data-" + dateStr + ".json", function(data) {
+    $.getJSON("/static/data/data-" + dateStr + ".json", function(data) {
         currentDate = dateStr;
         mapData[dateStr] = data;
 
