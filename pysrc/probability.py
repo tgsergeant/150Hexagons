@@ -57,7 +57,7 @@ def toJSON(outfile, filedate):
                 'p': "{:.0f}".format(100 * float(line[5])),
             }
             if not (elec['fav'] == 'ALP' or elec['fav'] == 'Coalition'):
-                elec['colour'] = line[2]
+                elec['colour'] = line[2][:7]
             electorates.append(elec)
 
             p_alp = float(line[5])
