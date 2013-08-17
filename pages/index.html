@@ -164,20 +164,12 @@
     }
 
     table#prob-table {
-        position: absolute;
-        width: 700px;
-        height: 450px;
-        left: 460px;
-        top: 184px;
-    }
-
-    table#prob-table {
         height: 40%;
-        left: 460px;
+        left: 585px;
         min-width: 300px;
         position: absolute;
         top: 184px;
-        width: 50%;
+        width: 43%;
     }
 
     #display-toggle {
@@ -250,8 +242,6 @@
 
     #legend img {
         padding: 21px 10px 0;
-        width: 180px;
-        float:right;
     }
 
     .has-table #legend {
@@ -327,8 +317,15 @@
     }
 
     #legend p {
-        width: 310px;
+        width: 450px;
         padding: 1em 1em 0;
+    }
+    
+    #t76 {
+        background-image: url("/static/img/win.png");
+        opacity: 1 !important;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
     }
 
 </style>
@@ -411,6 +408,8 @@
         checkSVGReady();
 
         selectionBoxOffset = 140; //$("#selection-box").offset().top;
+
+        debiki.Utterscroll.enable();
     });
 
     $(window).scroll(function() {

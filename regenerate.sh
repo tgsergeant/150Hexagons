@@ -1,15 +1,15 @@
 #!/bin/sh
 cd pysrc/
-python3 haschanged.py
-if [ $? -eq 1 ];
-then
+# python3 haschanged.py
+# if [ $? -eq 1 ];
+# then
 	echo "Regenerating data"
 	python3 probability.py
 	echo "Running cactus"
-	cd ../
+	cd ..
 	cactus build
 	echo "Deploying to S3"
-	#???
-else
-	echo "No changes, exiting"
-fi
+	s3_website push --site .build 
+# else
+#	echo "No changes, exiting"
+# fi
