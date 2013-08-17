@@ -124,6 +124,18 @@ function loadFirstDateData() {
     });
 }
 
+/**
+* Converts hex to RBG values 
+*/
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 function displayTableData(rawjson, data) {
     for (var j = 0; j <= TOTAL_ELECTORATES; j++) {
         var elec = data[rawjson.order[j] - 1];
@@ -132,15 +144,31 @@ function displayTableData(rawjson, data) {
         }
         var $td = $("#t" + (j + 1));
 
-        var stylestr = "opacity:" + elec.a;
+//        var stylestr = "opacity:" + elec.a;
+        var stylestr = "";
 
-        if (elec['colour'] != null) {
-            stylestr += ";background-color:" + elec.colour;
+        if (elec['colour'] != null && elec.fav != 'ALP' && elec.fav != 'Coalition') {
+            rgb = hexToRgb(elec.colour);
+            stylestr += "background-color: rgba(" 
+                + rgb.r + ", "
+                + rgb.g + ", "
+                + rgb.b + ", "
+                + elec.a + ");";
         } else {
             if (elec.fav == 'ALP') {
                 $td.attr('class', 'fav-alp');
+                stylestr += "background-color: rgba(" 
+                    + "255, "
+                    + "0, "
+                    + "0, "
+                    + elec.a + ");";
             } else if (elec.fav == 'Coalition') {
                 $td.attr('class', 'fav-lib');
+                stylestr += "background-color: rgba(" 
+                    + "0, "
+                    + "0, "
+                    + "255, "
+                    + elec.a + ");";
             }
         }
 
@@ -287,6 +315,7 @@ function setupTable() {
         var $tr = $("<tr></tr>");
         for(var col = 0; col < TABLE_COLUMNS; col++) {
             $tr.append("<td id='t" + (col * NUM_ROWS + row + 1) +"'></td>");
+            
         }
         $table.append($tr);
     }
@@ -352,6 +381,7 @@ function setPlay(on) {
 
 $(".play-btn").on("click", togglePlay);
 $(".pause-btn").on("click", togglePlay);
+
 
 
 
